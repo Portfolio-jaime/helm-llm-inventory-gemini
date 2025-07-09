@@ -4,22 +4,34 @@ Este proyecto permite consultar el inventario de componentes desplegados vía He
 
 ---
 
-## 🚀 Funcionalidades
+## 🖼️ Diagrama de arquitectura
 
-✅ Inventario completo de releases Helm por clúster  
-✅ Selección de clúster EKS desde interfaz  
-✅ Cambio automático de contexto `kubectl` con perfil AWS  
-✅ Validación de conexión al clúster  
-✅ Revisión de versiones instaladas de `kubectl`, `helm`, `aws-cli`  
-✅ Comparación con últimas versiones disponibles (GitHub)  
-✅ Consulta de versiones de nodos y del clúster  
-✅ Preguntas en lenguaje natural usando Gemini  
-✅ Historial de preguntas y respuestas  
-✅ Interfaz web vía `Streamlit`
+```mermaid
+flowchart LR
+    A[Usuario (web UI)] --> B[Streamlit web_ui.py]
+    B --> C[Módulos internos\ninventory.py, llm_gemini.py, tools_info.py]
+    C --> D[AWS EKS / Helm / Gemini]
+    D --> E[EKS, kubectl, helm, Google Generative AI]
+```
 
 ---
 
-## 📂 Estructura
+## 🚀 Funcionalidades
+
+- Inventario completo de releases Helm por clúster
+- Selección de clúster EKS desde interfaz
+- Cambio automático de contexto `kubectl` con perfil AWS
+- Validación de conexión al clúster
+- Revisión de versiones instaladas de `kubectl`, `helm`, `aws-cli`
+- Comparación con últimas versiones disponibles (GitHub)
+- Consulta de versiones de nodos y del clúster
+- Preguntas en lenguaje natural usando Gemini
+- Historial de preguntas y respuestas
+- Interfaz web vía `Streamlit`
+
+---
+
+## 📂 Estructura del proyecto
 
 ```
 .
@@ -51,7 +63,6 @@ Este proyecto permite consultar el inventario de componentes desplegados vía He
    git clone https://github.com/tu-org/helm-llm-inventory-gemini.git
    cd helm-llm-inventory-gemini
    ```
-
 2. **Crea el archivo `.env`** con tus credenciales y configuración:
    ```env
    GEMINI_API_KEY=tu_api_key_google
@@ -62,17 +73,14 @@ Este proyecto permite consultar el inventario de componentes desplegados vía He
      "nexus-dev1-eks-cluster":"EKSDeploymentExecution_dev1"
    }
    ```
-
 3. **Instala las dependencias:**
    ```bash
    pip install -r requirements.txt
    ```
-
 4. **Ejecuta la aplicación web:**
    ```bash
    streamlit run app/web_ui.py
    ```
-
 5. **Accede a la interfaz:**
    Abre tu navegador en [http://localhost:8501](http://localhost:8501)
 
@@ -90,17 +98,13 @@ Este proyecto permite consultar el inventario de componentes desplegados vía He
 ## 📌 Notas técnicas
 
 - El clúster seleccionado cambia automáticamente el contexto de kubectl usando:
-
   ```bash
   aws eks --region <region> update-kubeconfig --name <cluster> --profile <perfil>
   ```
-
 - La validación de acceso se hace con:
-
   ```bash
   kubectl get nodes
   ```
-
 - Gemini se consulta vía `google-generativeai` y el modelo `gemini-1.5-pro-latest`.
 
 ---
