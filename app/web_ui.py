@@ -18,11 +18,9 @@ from app.chart_versions import (
     get_latest_version,
     get_latest_versions_for_chart,
     should_recommend_upgrade,
+    dataframe_to_pdf,  # Importar la función correcta
 )
 from app.llm_gemini import ask_via_mcp
-
-from fpdf import FPDF
-from io import BytesIO
 
 # Cargar variables de entorno
 load_dotenv()
@@ -106,17 +104,6 @@ with tab2:
 
     summary_df = pd.DataFrame(summary)
     st.dataframe(summary_df)
-
-    def dataframe_to_pdf(df: pd.DataFrame) -> bytes:
-        pdf = FPDF()
-        pdf.add_page()
-        pdf.set_font("Arial", size=10)
-        for _, row in df.iterrows():
-            line = f"{row['Componente']}: {row['Versión actual']} -> {row['Versión recomendada']}"
-            pdf.cell(200, 10, txt=line.encode("latin-1", "replace").decode("latin-1"), ln=1)
-        buffer = BytesIO()
-        pdf.output(buffer, "F")
-        return buffer.getvalue()
 
     st.download_button("⬇️ Exportar CSV", data=summary_df.to_csv(index=False), file_name="recomendaciones.csv")
     st.download_button("⬇️ Exportar PDF", data=dataframe_to_pdf(summary_df), file_name="recomendaciones.pdf", mime="application/pdf")

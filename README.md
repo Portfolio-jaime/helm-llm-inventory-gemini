@@ -8,11 +8,7 @@ Este proyecto permite consultar el inventario de componentes desplegados vía He
 
 ```mermaid
 flowchart LR
-    user["Usuario (web UI)"] --> streamlit["Streamlit UI"]
-    streamlit --> backend["Backend Python"]
-    backend --> aws["AWS EKS / Helm"]
-    backend --> gemini["Gemini API"]
-    aws -.-> cli["kubectl, helm, aws-cli"]
+    user["Usuario (web UI)"] --> streamlit["Streamlit UI (web_ui.py)"]
     gemini -.-> gcp["Google Generative AI"]
 ```
 
@@ -28,6 +24,7 @@ flowchart LR
 - Comparación con últimas versiones disponibles (GitHub)
 - Consulta de versiones de nodos y del clúster
 - Preguntas en lenguaje natural usando Gemini
+- Exportación de recomendaciones a CSV y PDF
 - Historial de preguntas y respuestas
 - Interfaz web vía `Streamlit`
 
@@ -41,11 +38,14 @@ flowchart LR
 │   ├── inventory.py         # Obtención del inventario de Helm
 │   ├── llm_gemini.py        # Integración con modelo Gemini
 │   ├── tools_info.py        # Utilidades: versiones, validaciones
-│   └── web_ui.py            # Interfaz Streamlit
+│   ├── chart_versions.py    # Funciones utilitarias para versiones y PDF (sin Streamlit)
+│   └── web_ui.py            # Interfaz principal Streamlit (único archivo con UI)
 ├── .env                     # Configuración de entorno
 ├── requirements.txt
 └── README.md
 ```
+
+> **Nota:** Solo `web_ui.py` contiene la interfaz Streamlit. El resto de archivos son utilidades y lógica.
 
 ---
 
@@ -62,18 +62,18 @@ flowchart LR
 
 1. **Clona el repositorio:**
    ```bash
-   git clone https://github.com/tu-org/helm-llm-inventory-gemini.git
-   cd helm-llm-inventory-gemini
+   git clone <repo-url>
+   cd <repo>
    ```
 2. **Crea el archivo `.env`** con tus credenciales y configuración:
    ```env
-   GEMINI_API_KEY=tu_api_key_google
-   EKS_CLUSTERS_JSON={
-     "nexus-dev1-eks-cluster":"eu-west-1"
-   }
-   EKS_PROFILES_JSON={
-     "nexus-dev1-eks-cluster":"EKSDeploymentExecution_dev1"
-   }
+   # Ejemplo en .env
+   GEMINI_API_KEY=...
+   MCP_SERVER_URL=http://localhost:8000/mcp
+   OPENAI_API_KEY=...
+   OPENAI_MODEL=gpt-3.5-turbo
+   EKS_CLUSTERS_JSON={...}
+   EKS_PROFILES_JSON={...}
    ```
 3. **Instala las dependencias:**
    ```bash
@@ -81,7 +81,7 @@ flowchart LR
    ```
 4. **Ejecuta la aplicación web:**
    ```bash
-   streamlit run app/web_ui.py
+   PYTHONPATH=. streamlit run app/web_ui.py
    ```
 5. **Accede a la interfaz:**
    Abre tu navegador en [http://localhost:8501](http://localhost:8501)
@@ -97,17 +97,18 @@ flowchart LR
 
 ---
 
+## 📤 Exportar recomendaciones
+
+En la pestaña de recomendaciones puedes exportar los resultados a CSV o PDF usando los botones de descarga.
+
+---
+
 ## 📌 Notas técnicas
 
-- El clúster seleccionado cambia automáticamente el contexto de kubectl usando:
-  ```bash
-  aws eks --region <region> update-kubeconfig --name <cluster> --profile <perfil>
-  ```
-- La validación de acceso se hace con:
-  ```bash
-  kubectl get nodes
-  ```
+- El clúster seleccionado cambia automáticamente el contexto de kubectl usando AWS CLI.
+- La validación de acceso se hace con `kubectl get nodes`.
 - Gemini se consulta vía `google-generativeai` y el modelo `gemini-1.5-pro-latest`.
+- El archivo `chart_versions.py` solo contiene funciones utilitarias, no debe tener UI de Streamlit.
 
 ---
 
@@ -120,14 +121,5 @@ No se guarda información sensible. Los perfiles de AWS y claves deben manejarse
 ## 📥 Futuras mejoras
 
 - Soporte para modelos locales (Ollama)
-- Exportación de respuestas en PDF
-- Comparación entre clústeres
-- Integración con CI/CD
-
----
-
-## 🧠 Créditos
-
-Desarrollado por [Tu Nombre / Tu Equipo]  
-Con ayuda de Gemini, Streamlit y mucho ☕️
+- Mejoras en la exportación y visualización de reportes
 
