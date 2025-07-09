@@ -1,0 +1,13 @@
+streamlit
+pandas
+python-dotenv
+google-generativeai
+fastapi
+uvicorn
+requests
+packaging
+watchdog
+openpyxl 
+fpdf
+pandas
+python-dotenv

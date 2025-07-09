@@ -1,0 +1,92 @@
+{
+  "argocd": {
+    "repo_url": "https://github.com/argoproj/argo-helm",
+    "versions_url": "https://api.github.com/repos/argoproj/argo-helm/releases",
+    "homepage": "https://github.com/argoproj/argo-helm"
+  },
+  "argocd-bootstrap": {
+    "repo_url": "https://github.com/camptocamp/argocd-bootstrap",
+    "versions_url": "https://api.github.com/repos/camptocamp/argocd-bootstrap/releases",
+    "homepage": "https://github.com/camptocamp/argocd-bootstrap"
+  },
+  "aws-for-fluent-bit": {
+    "repo_url": "https://github.com/aws/eks-charts",
+    "versions_url": "https://api.github.com/repos/aws/eks-charts/releases",
+    "homepage": "https://github.com/aws/eks-charts/blob/master/stable/aws-for-fluent-bit/README.md"
+  },
+  "aws-load-balancer-controller": {
+    "repo_url": "https://github.com/kubernetes-sigs/aws-load-balancer-controller",
+    "versions_url": "https://api.github.com/repos/kubernetes-sigs/aws-load-balancer-controller/releases",
+    "homepage": "https://github.com/kubernetes-sigs/aws-load-balancer-controller"
+  },
+  "csi-secrets-store": {
+    "repo_url": "https://github.com/kubernetes-sigs/secrets-store-csi-driver",
+    "versions_url": "https://api.github.com/repos/kubernetes-sigs/secrets-store-csi-driver/releases",
+    "homepage": "https://github.com/kubernetes-sigs/secrets-store-csi-driver"
+  },
+  "datadog": {
+    "repo_url": "https://github.com/DataDog/helm-charts",
+    "versions_url": "https://api.github.com/repos/DataDog/helm-charts/releases",
+    "homepage": "https://github.com/DataDog/helm-charts"
+  },
+  "external-dns": {
+    "repo_url": "https://github.com/bitnami/charts",
+    "versions_url": "https://api.github.com/repos/bitnami/charts/releases",
+    "homepage": "https://artifacthub.io/packages/helm/bitnami/external-dns"
+  },
+  "gatekeeper": {
+    "repo_url": "https://github.com/open-policy-agent/gatekeeper",
+    "versions_url": "https://api.github.com/repos/open-policy-agent/gatekeeper/releases",
+    "homepage": "https://github.com/open-policy-agent/gatekeeper/tree/master/charts/gatekeeper"
+  },
+  "gatekeeper-constraints": {
+    "repo_url": "https://github.com/open-policy-agent/gatekeeper",
+    "versions_url": "https://api.github.com/repos/open-policy-agent/gatekeeper/releases",
+    "homepage": "https://github.com/open-policy-agent/gatekeeper"
+  },
+  "gatekeeper-constrainttemplates": {
+    "repo_url": "https://github.com/open-policy-agent/gatekeeper",
+    "versions_url": "https://api.github.com/repos/open-policy-agent/gatekeeper/releases",
+    "homepage": "https://github.com/open-policy-agent/gatekeeper"
+  },
+  "gatekeeper-mutations": {
+    "repo_url": "https://github.com/open-policy-agent/gatekeeper",
+    "versions_url": "https://api.github.com/repos/open-policy-agent/gatekeeper/releases",
+    "homepage": "https://github.com/open-policy-agent/gatekeeper"
+  },
+  "ingress-class": {
+    "repo_url": "https://github.com/Kong/charts",
+    "versions_url": "https://api.github.com/repos/Kong/charts/releases",
+    "homepage": "https://github.com/Kong/charts"
+  },
+  "karpenter": {
+    "repo_url": "https://github.com/aws/karpenter",
+    "versions_url": "https://api.github.com/repos/aws/karpenter/releases",
+    "homepage": "https://github.com/aws/karpenter"
+  },
+  "kong-kic": {
+    "repo_url": "https://github.com/Kong/charts",
+    "versions_url": "https://api.github.com/repos/Kong/charts/releases",
+    "homepage": "https://docs.konghq.com/kubernetes-ingress-controller"
+  },
+  "kuma": {
+    "repo_url": "https://github.com/kumahq/charts",
+    "versions_url": "https://api.github.com/repos/kumahq/charts/releases",
+    "homepage": "https://artifacthub.io/packages/helm/kuma/kuma"
+  },
+  "metrics-server": {
+    "repo_url": "https://github.com/kubernetes-sigs/metrics-server",
+    "versions_url": "https://api.github.com/repos/kubernetes-sigs/metrics-server/releases",
+    "homepage": "https://github.com/kubernetes-sigs/metrics-server"
+  },
+  "secrets-provider-aws": {
+    "repo_url": "https://github.com/aws/secrets-store-csi-driver-provider-aws",
+    "versions_url": "https://api.github.com/repos/aws/secrets-store-csi-driver-provider-aws/releases",
+    "homepage": "https://github.com/aws/secrets-store-csi-driver-provider-aws"
+  },
+  "snyk-monitor": {
+    "repo_url": "https://github.com/snyk/kubernetes-monitor",
+    "versions_url": "https://api.github.com/repos/snyk/kubernetes-monitor/releases",
+    "homepage": "https://github.com/snyk/kubernetes-monitor"
+  }
+}
