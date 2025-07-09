@@ -8,10 +8,12 @@ Este proyecto permite consultar el inventario de componentes desplegados vía He
 
 ```mermaid
 flowchart LR
-    A[Usuario (web UI)] --> B[Streamlit web_ui.py]
-    B --> C[Módulos internos<br/>inventory.py, llm_gemini.py, tools_info.py]
-    C --> D[AWS EKS / Helm / Gemini]
-    D --> E[EKS, kubectl, helm, Google Generative AI]
+    A[Usuario (web UI)] --> B[Streamlit UI]
+    B --> C[Backend Python]
+    C --> D[AWS EKS / Helm]
+    C --> E[Gemini API]
+    D -.-> F[kubectl, helm, aws-cli]
+    E -.-> G[Google Generative AI]
 ```
 
 ---
