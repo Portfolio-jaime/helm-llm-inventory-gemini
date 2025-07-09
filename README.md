@@ -21,19 +21,17 @@ Este proyecto permite consultar el inventario de componentes desplegados vía He
 
 ## 📂 Estructura
 
+```
 .
 ├── app/
-│ ├── inventory.py # Obtención del inventario de Helm
-│ ├── llm_gemini.py # Integración con modelo Gemini
-│ ├── tools_info.py # Utilidades: versiones, validaciones
-│ └── web_ui.py # Interfaz Streamlit
-├── .env # Configuración de entorno
+│   ├── inventory.py         # Obtención del inventario de Helm
+│   ├── llm_gemini.py        # Integración con modelo Gemini
+│   ├── tools_info.py        # Utilidades: versiones, validaciones
+│   └── web_ui.py            # Interfaz Streamlit
+├── .env                     # Configuración de entorno
 ├── requirements.txt
 └── README.md
-
-yaml
-Copy
-Edit
+```
 
 ---
 
@@ -46,75 +44,84 @@ Edit
 
 ---
 
-## ⚙️ Instalación
+## 🚦 Guía rápida de ejecución
 
-1. Clona el repositorio:
+1. **Clona el repositorio:**
+   ```bash
+   git clone https://github.com/tu-org/helm-llm-inventory-gemini.git
+   cd helm-llm-inventory-gemini
+   ```
 
-```bash
-git clone https://github.com/tu-org/helm-llm-inventory-gemini.git
-cd helm-llm-inventory-gemini
-Crea el archivo .env:
+2. **Crea el archivo `.env`** con tus credenciales y configuración:
+   ```env
+   GEMINI_API_KEY=tu_api_key_google
+   EKS_CLUSTERS_JSON={
+     "nexus-dev1-eks-cluster":"eu-west-1"
+   }
+   EKS_PROFILES_JSON={
+     "nexus-dev1-eks-cluster":"EKSDeploymentExecution_dev1"
+   }
+   ```
 
-env
-Copy
-Edit
-GEMINI_API_KEY=tu_api_key_google
+3. **Instala las dependencias:**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-EKS_CLUSTERS_JSON={
-  "nexus-dev1-eks-cluster":"eu-west-1"
-}
+4. **Ejecuta la aplicación web:**
+   ```bash
+   streamlit run app/web_ui.py
+   ```
 
-EKS_PROFILES_JSON={
-  "nexus-dev1-eks-cluster":"EKSDeploymentExecution_dev1"
-}
-Instala dependencias:
+5. **Accede a la interfaz:**
+   Abre tu navegador en [http://localhost:8501](http://localhost:8501)
 
-bash
-Copy
-Edit
-pip install -r requirements.txt
-▶️ Ejecución
-Lanza la aplicación web:
+---
 
-bash
-Copy
-Edit
-streamlit run app/web_ui.py
-Se abrirá una interfaz en tu navegador:
-📍 http://localhost:8501
+## 💬 Ejemplos de preguntas
 
-💬 Ejemplos de preguntas
-pgsql
-Copy
-Edit
-¿Qué versión tiene Prometheus?
-¿Está Loki desplegado?
-¿Qué componentes están desactualizados?
-¿Qué versión tiene metrics-server?
-📌 Notas técnicas
-El clúster seleccionado cambia automáticamente el contexto de kubectl usando:
+- ¿Qué versión tiene Prometheus?
+- ¿Está Loki desplegado?
+- ¿Qué componentes están desactualizados?
+- ¿Qué versión tiene metrics-server?
 
-bash
-Copy
-Edit
-aws eks --region <region> update-kubeconfig --name <cluster> --profile <perfil>
-La validación de acceso se hace con kubectl get nodes
+---
 
-Gemini se consulta vía google-generativeai y el modelo gemini-1.5-pro-latest
+## 📌 Notas técnicas
 
-🔒 Seguridad
-No se guarda información sensible. Los perfiles de AWS y claves deben manejarse mediante .env.
+- El clúster seleccionado cambia automáticamente el contexto de kubectl usando:
 
-📥 Futuras mejoras
-Soporte para modelos locales (Ollama)
+  ```bash
+  aws eks --region <region> update-kubeconfig --name <cluster> --profile <perfil>
+  ```
 
-Exportación de respuestas en PDF
+- La validación de acceso se hace con:
 
-Comparación entre clústeres
+  ```bash
+  kubectl get nodes
+  ```
 
-Integración con CI/CD
+- Gemini se consulta vía `google-generativeai` y el modelo `gemini-1.5-pro-latest`.
 
-🧠 Créditos
-Desarrollado por [Tu Nombre / Tu Equipo]
+---
+
+## 🔒 Seguridad
+
+No se guarda información sensible. Los perfiles de AWS y claves deben manejarse mediante `.env`.
+
+---
+
+## 📥 Futuras mejoras
+
+- Soporte para modelos locales (Ollama)
+- Exportación de respuestas en PDF
+- Comparación entre clústeres
+- Integración con CI/CD
+
+---
+
+## 🧠 Créditos
+
+Desarrollado por [Tu Nombre / Tu Equipo]  
 Con ayuda de Gemini, Streamlit y mucho ☕️
 
