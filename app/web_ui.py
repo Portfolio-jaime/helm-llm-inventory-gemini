@@ -58,15 +58,22 @@ with tab1:
 
     st.subheader("📋 Inventario de Helm")
     inventory_df = get_helm_inventory()
-    inventory_df["Última versión"] = inventory_df.apply(
-        lambda row: get_latest_version(row["Name"], fallback_chart=row["Chart"]), axis=1
-    )
-    st.dataframe(inventory_df)
+    # Solo para mostrar: elimina la columna 'Última versión' si existe, pero no afecta el DataFrame original
+    display_df = inventory_df.copy()
+    if "Última versión" in display_df.columns:
+        display_df = display_df.drop(columns=["Última versión"])
+    st.dataframe(display_df)
 
 with tab2:
     st.subheader("📊 Recomendaciones de actualización por componente")
 
     summary = []
+
+    # Asegura que la columna 'Última versión' exista antes de usarla
+    if "Última versión" not in inventory_df.columns:
+        inventory_df["Última versión"] = inventory_df.apply(
+            lambda row: get_latest_version(row["Name"], fallback_chart=row["Chart"]), axis=1
+        )
 
     for _, row in inventory_df.iterrows():
         name = row["Name"]
@@ -104,9 +111,7 @@ with tab2:
 
     summary_df = pd.DataFrame(summary)
     st.dataframe(summary_df)
-
     st.download_button("⬇️ Exportar CSV", data=summary_df.to_csv(index=False), file_name="recomendaciones.csv")
-    st.download_button("⬇️ Exportar PDF", data=dataframe_to_pdf(summary_df), file_name="recomendaciones.pdf", mime="application/pdf")
 
 with tab3:
     st.subheader("🛠️ Herramientas locales y versiones")
